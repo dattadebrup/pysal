@@ -121,7 +121,14 @@ class SpaceTimeEvents:
         shp = pysal.open(path)
         head, tail = os.path.split(path)
         dbf_tail = tail.split(".")[0]+".dbf"
-        dbf = pysal.open(pysal.examples.get_path(dbf_tail))
+        head_head, head_tail = os.path.split(head)
+        head_head_h, head_head_t = os.path.split(head_head)
+        if (head_head_t == 'examples'):
+            dbf = pysal.open(pysal.examples.get_path(dbf_tail))
+        else:
+            dbf_path = head+"\\" + dbf_tail
+            dbf = pysal.open(dbf_path)
+        
 
         # extract the spatial coordinates from the shapefile
         x = [coords[0] for coords in shp]
